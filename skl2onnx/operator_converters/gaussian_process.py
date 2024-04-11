@@ -192,7 +192,7 @@ def convert_gaussian_process_regressor(
             #     y_var[y_var_negative] = 0.0
             ys0_var = OnnxMax(ys_var, np.array([0], dtype=dtype), op_version=opv)
 
-            if hasattr(op, "_y_train_std"):
+            if hasattr(op, "_y_train_std") and np.all(op._y_train_std != 1):
                 # y_var = y_var * self._y_train_std**2
                 ys0_var = OnnxMul(var_y**2, ys0_var, op_version=opv)
 
